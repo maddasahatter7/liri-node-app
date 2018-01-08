@@ -1,0 +1,26 @@
+{
+  "name": "package.json",
+  "version": "1.0.0",
+  "description": "saved npm packages",
+  "main": "index.js",
+  "scripts": {
+    "test": "hello"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maddasahatter7/liri-node-app.git"
+  },
+  "keywords": [
+    "liri"
+  ],
+  "author": "madison",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maddasahatter7/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/maddasahatter7/liri-node-app#readme",
+  "dependencies": {
+    "node-spotify-api": "^1.0.7",
+    "twitter": "^1.7.1"
+  }
+}
