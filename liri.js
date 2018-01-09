@@ -20,8 +20,7 @@ var fs = require("fs");
 
 // Initialize the spotify API client using our client id and secret
 var spotify = new Spotify(keys.spotify);
-for (i = 3; i < process.argv.length; i++)
-    search += process.argv[i] + "+"
+
 
 
 // var spotify = new spotify(keys.spotify);
@@ -43,20 +42,60 @@ function viewTweet() {
         }
     });
 }
-function movieThis(){
+var getMovie = function movieThis(movieName){
+    if (movieName === undefined){
+        movieName = "Free Willy";
+    } 
 
     var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
   
-  request(queryURL, function(error, response, body) {
+  request(queryUrl, function(error, response, body) {
 
         if (!error && response.statusCode === 200) {
-            console.log("Release Date: "  + JSON.parse(body).Released);
+          
+            console.log("Movie Name: " + JSON.parse(body).Title);
+            console.log("Release Date: " + JSON.parse(body).Released);
+            console.log("Rated: " + JSON.parse(body).Rated);
+            console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
+            console.log("Rotten Tomatoes Rating: " + JSON.parse(body).tomatoRating);
+            console.log("Country: " + JSON.parse(body).Country);
+            console.log("Plot: " + JSON.parse(body).Plot);
+            console.log("Actors: " + JSON.parse(body).Actors);
 
          
   }
 });
     
 
+}
+
+var getArtist = function(artist){
+    return artist.name;
+};
+
+var getSpotify = function(songName){
+    if (songName === undefined){
+        songName = "vibin out with (((o)))";
+    }
+    spotify.search(
+        {
+        type: "track",
+        query: songName  
+    },
+    function(err,data){
+        if (err){
+            console.log("There's a damn error: " + err);
+            return;
+        }
+        var songs = data.tracks.items;
+        for (var i = 0; i < songs.length; i++){
+            console.log(i);
+            console.log("artist(s): " + songs[i].artists.map(getArtist));
+            console.log("song name: " + songs[i].name);
+            console.log("Preview: " + songs[i].preview_url);
+        }
+    }
+)
 }
 
 
@@ -68,7 +107,7 @@ var pick = function(caseData, functionData) {
             viewTweet();
             break;
         case "spotify-this-song":
-            getMeSpotify(functionData);
+            getSpotify(functionData);
             break;
         case "movie-this":
             getMovie(functionData);
